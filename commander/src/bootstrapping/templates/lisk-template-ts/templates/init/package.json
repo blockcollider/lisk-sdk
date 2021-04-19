@@ -95,6 +95,8 @@
 		"@oclif/command": "1.6.1",
 		"@oclif/plugin-autocomplete": "0.3.0",
 		"@oclif/plugin-help": "3.1.0",
+		"@liskhq/lisk-framework-faucet-plugin": "^0.1.0",
+		"@liskhq/lisk-framework-dashboard-plugin": "^0.1.0",
 		"fs-extra": "9.0.1",
 		"inquirer": "7.3.2",
 		"lisk-sdk": "5.0.4",
