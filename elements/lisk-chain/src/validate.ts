@@ -118,9 +118,9 @@ export const validateGenesisBlockHeader = (block: GenesisBlock, accountSchema: S
 	// Custom header validation not possible with validator
 	if (!header.generatorPublicKey.equals(GENESIS_BLOCK_GENERATOR_PUBLIC_KEY)) {
 		errors.push({
-			message: 'should be equal to constant',
+			message: 'must be equal to constant',
 			keyword: 'const',
-			dataPath: 'header.generatorPublicKey',
+			instancePath: '/header/generatorPublicKey',
 			schemaPath: 'properties.generatorPublicKey',
 			params: { allowedValue: GENESIS_BLOCK_GENERATOR_PUBLIC_KEY },
 		});
@@ -128,9 +128,9 @@ export const validateGenesisBlockHeader = (block: GenesisBlock, accountSchema: S
 
 	if (header.reward !== GENESIS_BLOCK_REWARD) {
 		errors.push({
-			message: 'should be equal to constant',
+			message: 'must be equal to constant',
 			keyword: 'const',
-			dataPath: 'header.reward',
+			instancePath: '/header/reward',
 			schemaPath: 'properties.reward',
 			params: { allowedValue: GENESIS_BLOCK_REWARD },
 		});
@@ -138,9 +138,9 @@ export const validateGenesisBlockHeader = (block: GenesisBlock, accountSchema: S
 
 	if (!header.signature.equals(GENESIS_BLOCK_SIGNATURE)) {
 		errors.push({
-			message: 'should be equal to constant',
+			message: 'must be equal to constant',
 			keyword: 'const',
-			dataPath: 'header.signature',
+			instancePath: '/header/signature',
 			schemaPath: 'properties.signature',
 			params: { allowedValue: GENESIS_BLOCK_SIGNATURE },
 		});
@@ -148,9 +148,9 @@ export const validateGenesisBlockHeader = (block: GenesisBlock, accountSchema: S
 
 	if (!header.transactionRoot.equals(GENESIS_BLOCK_TRANSACTION_ROOT)) {
 		errors.push({
-			message: 'should be equal to constant',
+			message: 'must be equal to constant',
 			keyword: 'const',
-			dataPath: 'header.transactionRoot',
+			instancePath: '/header/transactionRoot',
 			schemaPath: 'properties.transactionRoot',
 			params: { allowedValue: GENESIS_BLOCK_TRANSACTION_ROOT },
 		});
@@ -159,7 +159,7 @@ export const validateGenesisBlockHeader = (block: GenesisBlock, accountSchema: S
 		errors.push({
 			message: 'Payload length must be zero',
 			keyword: 'const',
-			dataPath: 'payload',
+			instancePath: '/payload',
 			schemaPath: 'properties.payload',
 			params: { allowedValue: [] },
 		});
@@ -167,9 +167,9 @@ export const validateGenesisBlockHeader = (block: GenesisBlock, accountSchema: S
 
 	if (!objects.bufferArrayUniqueItems(header.asset.initDelegates as Buffer[])) {
 		errors.push({
-			dataPath: '.initDelegates',
+			instancePath: '/initDelegates',
 			keyword: 'uniqueItems',
-			message: 'should NOT have duplicate items',
+			message: 'must NOT have duplicate items',
 			params: {},
 			schemaPath: '#/properties/initDelegates/uniqueItems',
 		});
@@ -177,9 +177,9 @@ export const validateGenesisBlockHeader = (block: GenesisBlock, accountSchema: S
 
 	if (!objects.bufferArrayOrderByLex(header.asset.initDelegates as Buffer[])) {
 		errors.push({
-			message: 'should be lexicographically ordered',
+			message: 'must be lexicographically ordered',
 			keyword: 'initDelegates',
-			dataPath: 'header.asset.initDelegates',
+			instancePath: '/header/asset/initDelegates',
 			schemaPath: 'properties.initDelegates',
 			params: { initDelegates: header.asset.initDelegates },
 		});
@@ -199,9 +199,9 @@ export const validateGenesisBlockHeader = (block: GenesisBlock, accountSchema: S
 
 	if (!objects.bufferArrayEqual(accountAddresses, copiedAddresses)) {
 		errors.push({
-			message: 'should be length and lexicographically ordered',
+			message: 'must be length and lexicographically ordered',
 			keyword: 'accounts',
-			dataPath: 'header.asset.accounts',
+			instancePath: '/header/asset/accounts',
 			schemaPath: 'properties.accounts',
 			params: { orderKey: 'address' },
 		});
@@ -209,9 +209,9 @@ export const validateGenesisBlockHeader = (block: GenesisBlock, accountSchema: S
 
 	if (!objects.bufferArrayUniqueItems(accountAddresses)) {
 		errors.push({
-			dataPath: '.accounts',
+			instancePath: '/accounts',
 			keyword: 'uniqueItems',
-			message: 'should NOT have duplicate items',
+			message: 'must NOT have duplicate items',
 			params: {},
 			schemaPath: '#/properties/accounts/uniqueItems',
 		});

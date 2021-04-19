@@ -51,9 +51,9 @@ describe('validator', () => {
 
 			// Assert
 			expect(errors).toContainEqual({
-				dataPath: '.type',
+				instancePath: '/type',
 				keyword: 'const',
-				message: 'should be equal to constant',
+				message: 'must be equal to constant',
 				schemaPath: '#/properties/type/const',
 				params: { allowedValue: 'object' },
 			});
@@ -68,9 +68,9 @@ describe('validator', () => {
 
 			// Assert
 			expect(errors).toContainEqual({
-				dataPath: '',
+				instancePath: '',
 				keyword: 'required',
-				message: "should have required property 'type'",
+				message: "must have required property 'type'",
 				schemaPath: '#/required',
 				params: { missingProperty: 'type' },
 			});
@@ -85,9 +85,9 @@ describe('validator', () => {
 
 			// Assert
 			expect(errors).toContainEqual({
-				dataPath: '',
+				instancePath: '',
 				keyword: 'required',
-				message: "should have required property '$id'",
+				message: "must have required property '$id'",
 				schemaPath: '#/required',
 				params: { missingProperty: '$id' },
 			});
@@ -124,9 +124,9 @@ describe('validator', () => {
 
 			// Assert
 			expect(errors).toContainEqual({
-				dataPath: '',
+				instancePath: '',
 				keyword: 'required',
-				message: "should have required property 'properties'",
+				message: "must have required property 'properties'",
 				schemaPath: '#/required',
 				params: { missingProperty: 'properties' },
 			});
@@ -143,14 +143,15 @@ describe('validator', () => {
 
 			// Act
 			const errors = validator.validateSchema(invalidSchema);
+			const expectedPattern = '^[a-z]+((\\d)|([A-Z0-9][a-zA-Z0-9]+))*([a-z0-9A-Z])?$';
 
 			// Assert
-			expect(errors).toContainEqual({
-				dataPath: '.properties',
-				keyword: 'format',
-				message: 'should match format "camelCase"',
-				schemaPath: '#/properties/properties/propertyNames/format',
-				params: { format: 'camelCase' },
+			expect(errors[0]).toEqual({
+				instancePath: '/properties',
+				keyword: 'pattern',
+				message: `must match pattern "${expectedPattern}"`,
+				schemaPath: '#/properties/properties/propertyNames/pattern',
+				params: { pattern: expectedPattern },
 				propertyName: 'my-custom-prop',
 			});
 		});
@@ -165,9 +166,9 @@ describe('validator', () => {
 
 			// Assert
 			expect(errors).toContainEqual({
-				dataPath: '.properties',
+				instancePath: '/properties',
 				keyword: 'minProperties',
-				message: 'should NOT have fewer than 1 properties',
+				message: 'must NOT have fewer than 1 items',
 				schemaPath: '#/properties/properties/minProperties',
 				params: { limit: 1 },
 			});

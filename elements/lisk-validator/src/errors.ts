@@ -17,7 +17,7 @@
 
 export interface ErrorObject {
 	keyword: string;
-	dataPath?: string;
+	instancePath?: string;
 	schemaPath?: string;
 	params: ErrorParams;
 	// Added to validation errors of propertyNames keyword schema
@@ -56,18 +56,18 @@ interface KeywordDataFormatters {
 
 const errorFormatterMap: KeywordDataFormatters = {
 	type: error =>
-		`Property '${error.dataPath ?? ''}' should be of type '${errorParamToString(
+		`Property '${error.instancePath ?? ''}' should be of type '${errorParamToString(
 			error.params.type,
 		)}'`,
 	additionalProperties: error =>
-		`Property '${error.dataPath ?? ''}' has extraneous property '${errorParamToString(
+		`Property '${error.instancePath ?? ''}' has extraneous property '${errorParamToString(
 			error.params.additionalProperty,
 		)}'`,
-	minLength: error => `Property '${error.dataPath ?? ''}' ${errorParamToString(error.message)}`,
-	maxLength: error => `Property '${error.dataPath ?? ''}' ${errorParamToString(error.message)}`,
-	format: error => `Property '${error.dataPath ?? ''}' ${errorParamToString(error.message)}`,
+	minLength: error => `Property '${error.instancePath ?? ''}' ${errorParamToString(error.message)}`,
+	maxLength: error => `Property '${error.instancePath ?? ''}' ${errorParamToString(error.message)}`,
+	format: error => `Property '${error.instancePath ?? ''}' ${errorParamToString(error.message)}`,
 	required: error => `Missing property, ${errorParamToString(error.message)}`,
-	dataType: error => `Property '${error.dataPath ?? ''}' ${errorParamToString(error.message)}`,
+	dataType: error => `Property '${error.instancePath ?? ''}' ${errorParamToString(error.message)}`,
 };
 
 const defaultErrorFormatter: KeywordFormatterFunction = error =>

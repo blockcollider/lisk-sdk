@@ -12,6 +12,8 @@
  * Removal or modification of this copyright notice is prohibited.
  */
 
+import { KeywordDefinition, SchemaObjCxt } from 'ajv';
+import { AnySchemaObject, CompileKeywordFunc } from 'ajv/dist/types';
 import * as createDebug from 'debug';
 import { LiskValidationError } from '../errors';
 
@@ -23,14 +25,6 @@ export const metaSchema = {
 	minimum: 1,
 	maximum: 18999,
 };
-
-type ValidateFunction = (
-	data: string,
-	dataPath?: string,
-	parentData?: object,
-	parentDataProperty?: string | number,
-	rootData?: object,
-) => boolean;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const deepValue = (obj: object, path: string): any => {
@@ -48,32 +42,21 @@ const deepValue = (obj: object, path: string): any => {
 	return result;
 };
 
-interface AjvContext {
-	root: {
-		schema: object;
-	};
-	schemaPath: string;
-}
-
-const compile = (
-	value: number,
-	parentSchema: object,
-	it: Partial<AjvContext>,
-): ValidateFunction => {
+const compile: CompileKeywordFunc = (
+	value: any,
+	parentSchema: AnySchemaObject,
+	it: SchemaObjCxt,
+) => {
 	debug('compile: schema: %i', value);
 	debug('compile: parent schema: %j', parentSchema);
 
-	const {
-		schemaPath,
-		root: { schema: rootSchema },
-	} = it as AjvContext;
-	const parentPath: string[] = schemaPath.split('.');
+	const parentPath: string[] = it.schemaPath.str.split('.');
 	parentPath.shift();
 	parentPath.pop();
 	// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 	const parentSchemaObject: {
 		[key: string]: { fieldNumber: number };
-	} = deepValue(rootSchema, parentPath.join('.'));
+	} = deepValue(it.schemaEnv.schema as object, parentPath.join('.'));
 
 	const fieldNumbers: number[] = Object.keys(parentSchemaObject).map(
 		(key: string) => parentSchemaObject[key].fieldNumber,
@@ -86,22 +69,17 @@ const compile = (
 				keyword: 'fieldNumber',
 				message: 'Value must be unique across all properties on same level',
 				params: { fieldNumbers },
-				dataPath: '',
-				schemaPath,
+				instancePath: '',
+				schemaPath: it.schemaPath.str,
 			},
 		]);
 	}
 
-	return (
-		_data: string,
-		_dataPath?: string,
-		_parentData?: object,
-		_parentDataProperty?: string | number,
-		_rootData?: object,
-	): boolean => true;
+	return () => true;
 };
 
-export const fieldNumberKeyword = {
+export const fieldNumberKeyword: KeywordDefinition = {
+	keyword: 'fieldNumber',
 	compile,
 	valid: true,
 	errors: false,

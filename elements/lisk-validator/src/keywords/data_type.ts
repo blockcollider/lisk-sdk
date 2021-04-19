@@ -12,8 +12,15 @@
  * Removal or modification of this copyright notice is prohibited.
  */
 
+import {
+	AnySchemaObject,
+	SchemaObjCxt,
+	ValidateFunction,
+	ErrorObject,
+	KeywordDefinition,
+} from 'ajv';
 import * as createDebug from 'debug';
-import { LiskValidationError, ErrorObject } from '../errors';
+import { LiskValidationError } from '../errors';
 import {
 	isBoolean,
 	isBytes,
@@ -32,40 +39,16 @@ export const metaSchema = {
 	enum: ['bytes', 'uint32', 'sint32', 'uint64', 'sint64', 'string', 'boolean'],
 };
 
-type ValidateFunction = (
-	data: string,
-	dataPath?: string,
-	parentData?: object,
-	parentDataProperty?: string | number,
-	rootData?: object,
-) => boolean;
-
-interface AjvContext {
-	root: {
-		schema: object;
-	};
-	schemaPath: string;
-}
-
 interface KVPair {
 	[key: string]: unknown;
 }
-interface ValidateFunctionContext {
-	errors?: ErrorObject[];
-	(
-		data: Buffer | bigint | string | number,
-		dataPath?: string,
-		parentData?: object,
-		parentDataProperty?: string | number,
-		rootData?: object,
-	): boolean;
+
+interface DataValidateFunction {
+	errors?: Partial<ErrorObject>[];
+	(...args: Parameters<ValidateFunction>): boolean | Promise<unknown>;
 }
 
-const compile = (
-	value: string,
-	parentSchema: object,
-	it: Partial<AjvContext>,
-): ValidateFunction => {
+const compile = (value: unknown, parentSchema: AnySchemaObject, it: SchemaObjCxt) => {
 	debug('compile: value: %s', value);
 	debug('compile: parent schema: %j', parentSchema);
 	const typePropertyPresent = Object.keys(parentSchema).includes('type');
@@ -76,19 +59,13 @@ const compile = (
 				keyword: 'dataType',
 				message: 'Either "dataType" or "type" can be presented in schema',
 				params: { dataType: value },
-				dataPath: '',
-				schemaPath: it.schemaPath ?? '',
+				instancePath: '',
+				schemaPath: it.schemaPath.str ?? '',
 			},
 		]);
 	}
 
-	const validate: ValidateFunctionContext = (
-		data: Buffer | bigint | string | number,
-		_dataPath?: string,
-		_parentData?: object,
-		_parentDataProperty?: string | number,
-		_rootData?: object,
-	): boolean => {
+	const validate: DataValidateFunction = (data: Buffer | bigint | string | number): boolean => {
 		if (value === 'boolean') {
 			return isBoolean(data);
 		}
@@ -104,6 +81,7 @@ const compile = (
 						{
 							keyword: 'dataType',
 							message: 'minLength not satisfied',
+							// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 							params: { dataType: value, minLength: parent.minLength, length },
 						},
 					];
@@ -117,6 +95,7 @@ const compile = (
 						{
 							keyword: 'dataType',
 							message: 'maxLength exceeded',
+							// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 							params: { dataType: value, maxLength: parent.maxLength, length },
 						},
 					];
@@ -147,7 +126,8 @@ const compile = (
 	return validate;
 };
 
-export const dataTypeKeyword = {
+export const dataTypeKeyword: KeywordDefinition = {
+	keyword: 'dataType',
 	compile,
 	errors: 'full',
 	modifying: false,

@@ -15,13 +15,13 @@
 export class TransactionPoolError extends Error {
 	public message: string;
 	public id: Buffer;
-	public dataPath: string;
+	public instancePath: string;
 	public actual?: string | number;
 	public expected?: string | number;
 	public constructor(
 		message = '',
 		id = Buffer.alloc(0),
-		dataPath = '',
+		instancePath = '',
 		actual?: string | number,
 		expected?: string | number,
 	) {
@@ -29,14 +29,14 @@ export class TransactionPoolError extends Error {
 		this.message = message;
 		this.id = id;
 		this.name = 'TransactionPoolError';
-		this.dataPath = dataPath;
+		this.instancePath = instancePath;
 		this.actual = actual;
 		this.expected = expected;
 	}
 
 	public toString(): string {
 		const defaultMessage = `TransactionPool: ${this.id.toString('hex')} failed to process at ${
-			this.dataPath
+			this.instancePath
 		}: ${this.message}`;
 		const withActual = this.actual
 			? // eslint-disable-next-line @typescript-eslint/restrict-template-expressions

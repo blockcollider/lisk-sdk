@@ -152,7 +152,7 @@ export class KeysModule extends BaseModule {
 				errors.push({
 					message: 'should be lexicographically ordered',
 					keyword: 'mandatoryKeys',
-					dataPath: `.accounts[${index}].keys.mandatoryKeys`,
+					instancePath: `/accounts[${index}]/keys/mandatoryKeys`,
 					schemaPath: '#/properties/accounts/items/properties/keys/properties/mandatoryKeys',
 					params: { keys: account.keys, address: account.address },
 				});
@@ -160,7 +160,7 @@ export class KeysModule extends BaseModule {
 
 			if (!bufferArrayUniqueItems(account.keys.mandatoryKeys)) {
 				errors.push({
-					dataPath: `.accounts[${index}].keys.mandatoryKeys`,
+					instancePath: `/accounts[${index}]/keys/mandatoryKeys`,
 					keyword: 'uniqueItems',
 					message: 'should NOT have duplicate items',
 					params: { keys: account.keys, address: account.address },
@@ -173,7 +173,7 @@ export class KeysModule extends BaseModule {
 				errors.push({
 					message: 'should be lexicographically ordered',
 					keyword: 'optionalKeys',
-					dataPath: `.accounts[${index}].keys.optionalKeys`,
+					instancePath: `/accounts[${index}]/keys/optionalKeys`,
 					schemaPath: '#/properties/accounts/items/properties/keys/properties/optionalKeys',
 					params: { keys: account.keys, address: account.address },
 				});
@@ -181,7 +181,7 @@ export class KeysModule extends BaseModule {
 
 			if (!bufferArrayUniqueItems(account.keys.optionalKeys)) {
 				errors.push({
-					dataPath: `.accounts[${index}].keys.optionalKeys`,
+					instancePath: `/accounts[${index}]/keys/optionalKeys`,
 					keyword: 'uniqueItems',
 					message: 'should NOT have duplicate items',
 					params: { keys: account.keys, address: account.address },
@@ -192,7 +192,7 @@ export class KeysModule extends BaseModule {
 
 			if (bufferArrayContainsSome(account.keys.mandatoryKeys, account.keys.optionalKeys)) {
 				errors.push({
-					dataPath: `.accounts[${index}].keys.mandatoryKeys, .accounts[${index}].keys.optionalKeys`,
+					instancePath: `/accounts[${index}]/keys/mandatoryKeys, /accounts[${index}]/keys/optionalKeys`,
 					keyword: 'uniqueItems',
 					message: 'should NOT have duplicate items among mandatoryKeys and optionalKeys',
 					params: { keys: account.keys, address: account.address },
@@ -202,7 +202,7 @@ export class KeysModule extends BaseModule {
 
 			if (account.keys.mandatoryKeys.length + account.keys.optionalKeys.length > 64) {
 				errors.push({
-					dataPath: `.accounts[${index}].keys.mandatoryKeys, .accounts[${index}].keys.optionalKeys`,
+					instancePath: `/accounts[${index}]/keys/mandatoryKeys, /accounts[${index}]/keys/optionalKeys`,
 					keyword: 'maxItems',
 					message: 'should not have more than 64 keys',
 					params: { keys: account.keys, address: account.address, maxItems: 64 },
@@ -212,7 +212,7 @@ export class KeysModule extends BaseModule {
 
 			if (account.keys.numberOfSignatures < account.keys.mandatoryKeys.length) {
 				errors.push({
-					dataPath: `.accounts[${index}].keys.numberOfSignatures`,
+					instancePath: `/accounts[${index}]/keys/numberOfSignatures`,
 					keyword: 'min',
 					message: 'should be minimum of length of mandatoryKeys',
 					params: {
@@ -229,7 +229,7 @@ export class KeysModule extends BaseModule {
 				account.keys.mandatoryKeys.length + account.keys.optionalKeys.length
 			) {
 				errors.push({
-					dataPath: `.accounts[${index}].keys.numberOfSignatures`,
+					instancePath: `/accounts[${index}]/keys/numberOfSignatures`,
 					keyword: 'max',
 					message: 'should be maximum of length of mandatoryKeys and optionalKeys',
 					params: {

@@ -13,8 +13,7 @@
  *
  */
 
-import * as Ajv from 'ajv';
-import { ValidateFunction } from 'ajv';
+import Ajv, { ValidateFunction } from 'ajv';
 import * as formats from './formats';
 import { ErrorObject, LiskValidationError } from './errors';
 import { fieldNumberKeyword } from './keywords/field_number';
@@ -24,12 +23,11 @@ import { liskMetaSchema } from './lisk_meta_schema';
 export const liskSchemaIdentifier: string = liskMetaSchema.$id;
 
 class LiskValidator {
-	private readonly _validator: Ajv.Ajv;
+	private readonly _validator: Ajv;
 
 	public constructor() {
 		this._validator = new Ajv({
 			allErrors: true,
-			schemaId: 'auto',
 			useDefaults: false,
 			// FIXME: Combination with lisk-codec schema, making true would throw error because
 			// Trace: Error: schema with key or id "/block/header"
@@ -44,7 +42,8 @@ class LiskValidator {
 			);
 		}
 
-		this._validator.addKeyword('uniqueSignedPublicKeys', {
+		this._validator.addKeyword({
+			keyword: 'uniqueSignedPublicKeys',
 			type: 'array',
 			// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 			compile: () => (data: ReadonlyArray<string>) =>
@@ -53,8 +52,8 @@ class LiskValidator {
 		});
 
 		this._validator.addMetaSchema(liskMetaSchema);
-		this._validator.addKeyword('fieldNumber', fieldNumberKeyword);
-		this._validator.addKeyword('dataType', dataTypeKeyword);
+		this._validator.addKeyword(fieldNumberKeyword);
+		this._validator.addKeyword(dataTypeKeyword);
 	}
 
 	public validate(schema: object, data: object): ErrorObject[] {
@@ -84,7 +83,7 @@ class LiskValidator {
 			throw new LiskValidationError([
 				{
 					message: (error as Error).message.toString(),
-					dataPath: '',
+					instancePath: '',
 					keyword: '',
 					schemaPath: '',
 					params: {},
@@ -93,7 +92,7 @@ class LiskValidator {
 		}
 	}
 
-	public removeSchema(schemaKeyRef?: object | string | RegExp | boolean): Ajv.Ajv {
+	public removeSchema(schemaKeyRef?: object | string | RegExp | boolean): Ajv {
 		return this._validator.removeSchema(schemaKeyRef);
 	}
 }

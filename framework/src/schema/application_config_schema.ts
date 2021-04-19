@@ -13,7 +13,7 @@
  *
  */
 export const applicationConfigSchema = {
-	id: '#/config',
+	$id: '#/config',
 	type: 'object',
 	required: ['version', 'networkVersion', 'rpc', 'genesisConfig', 'forging', 'network', 'plugins'],
 	properties: {
@@ -59,7 +59,7 @@ export const applicationConfigSchema = {
 			},
 		},
 		genesisConfig: {
-			id: '#/config/genesisConfig',
+			$id: '#/config/genesisConfig',
 			type: 'object',
 			required: ['blockTime', 'communityIdentifier', 'maxPayloadLength', 'rewards'],
 			properties: {
@@ -113,7 +113,7 @@ export const applicationConfigSchema = {
 					description: 'Maximum number of transactions allowed per block',
 				},
 				rewards: {
-					id: '#/config/rewards',
+					$id: '#/config/rewards',
 					type: 'object',
 					required: ['milestones', 'offset', 'distance'],
 					description: 'Object representing LSK rewards milestone',

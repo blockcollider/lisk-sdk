@@ -53,10 +53,10 @@ describe('validator formats', () => {
 			const expectedError = [
 				{
 					keyword: 'format',
-					dataPath: '.target',
+					instancePath: '/target',
 					schemaPath: '#/allOf/1/properties/target/format',
 					params: { format: 'hex' },
-					message: 'should match format "hex"',
+					message: 'must match format "hex"',
 				},
 			];
 
@@ -82,10 +82,10 @@ describe('validator formats', () => {
 			const expectedError = [
 				{
 					keyword: 'format',
-					dataPath: '.rootPath',
+					instancePath: '/rootPath',
 					schemaPath: '#/properties/rootPath/format',
 					params: { format: 'path' },
-					message: 'should match format "path"',
+					message: 'must match format "path"',
 				},
 			];
 
@@ -115,10 +115,10 @@ describe('validator formats', () => {
 			const expectedError = [
 				{
 					keyword: 'format',
-					dataPath: '.encryptedPassphrase',
+					instancePath: '/encryptedPassphrase',
 					schemaPath: '#/properties/encryptedPassphrase/format',
 					params: { format: 'encryptedPassphrase' },
-					message: 'should match format "encryptedPassphrase"',
+					message: 'must match format "encryptedPassphrase"',
 				},
 			];
 
@@ -160,10 +160,10 @@ describe('validator formats', () => {
 			const expectedError = [
 				{
 					keyword: 'format',
-					dataPath: '.camelCaseRegex',
+					instancePath: '/camelCaseRegex',
 					schemaPath: '#/properties/camelCaseRegex/format',
 					params: { format: 'camelCase' },
-					message: 'should match format "camelCase"',
+					message: 'must match format "camelCase"',
 				},
 			];
 
@@ -195,10 +195,10 @@ describe('validator formats', () => {
 			const expectedError = [
 				{
 					keyword: 'format',
-					dataPath: '.version',
+					instancePath: '/version',
 					schemaPath: '#/properties/version/format',
 					params: { format: 'version' },
-					message: 'should match format "version"',
+					message: 'must match format "version"',
 				},
 			];
 

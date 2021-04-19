@@ -38,7 +38,7 @@ export const liskMetaSchema = {
 			type: 'object',
 			propertyNames: {
 				type: 'string',
-				format: 'camelCase',
+				pattern: '^[a-z]+((\\d)|([A-Z0-9][a-zA-Z0-9]+))*([a-z0-9A-Z])?$',
 			},
 			additionalProperties: {
 				anyOf: [

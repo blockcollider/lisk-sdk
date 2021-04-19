@@ -795,7 +795,7 @@ describe('chain/process block', () => {
 						expect.objectContaining({
 							message: 'should be lexicographically ordered',
 							keyword: 'initDelegates',
-							dataPath: 'header.asset.initDelegates',
+							instancePath: 'header/asset/initDelegates',
 							schemaPath: 'properties.initDelegates',
 						}),
 					);
@@ -825,7 +825,7 @@ describe('chain/process block', () => {
 					expect((error as LiskValidationError).errors).toHaveLength(1);
 					expect((error as LiskValidationError).errors[0]).toEqual(
 						expect.objectContaining({
-							dataPath: '.initDelegates',
+							instancePath: 'initDelegates',
 							keyword: 'uniqueItems',
 							message: 'should NOT have duplicate items',
 							params: {},
@@ -855,7 +855,7 @@ describe('chain/process block', () => {
 					expect((error as LiskValidationError).errors).toHaveLength(1);
 					expect((error as LiskValidationError).errors[0]).toEqual(
 						expect.objectContaining({
-							dataPath: '.initDelegates',
+							instancePath: 'initDelegates',
 							keyword: 'minItems',
 							message: 'should NOT have fewer than 1 items',
 							params: {
@@ -965,7 +965,7 @@ describe('chain/process block', () => {
 						expect.objectContaining({
 							message: 'should be length and lexicographically ordered',
 							keyword: 'accounts',
-							dataPath: 'header.asset.accounts',
+							instancePath: 'header/asset/accounts',
 							schemaPath: 'properties.accounts',
 							params: { orderKey: 'address' },
 						}),
@@ -999,7 +999,7 @@ describe('chain/process block', () => {
 						expect.objectContaining({
 							message: 'should be length and lexicographically ordered',
 							keyword: 'accounts',
-							dataPath: 'header.asset.accounts',
+							instancePath: 'header/asset/accounts',
 							schemaPath: 'properties.accounts',
 							params: { orderKey: 'address' },
 						}),
@@ -1030,7 +1030,7 @@ describe('chain/process block', () => {
 						expect.objectContaining({
 							message: 'should be length and lexicographically ordered',
 							keyword: 'accounts',
-							dataPath: 'header.asset.accounts',
+							instancePath: 'header/asset/accounts',
 							schemaPath: 'properties.accounts',
 							params: { orderKey: 'address' },
 						}),
@@ -1062,7 +1062,7 @@ describe('chain/process block', () => {
 					expect((error as LiskValidationError).errors).toHaveLength(1);
 					expect((error as LiskValidationError).errors[0]).toEqual(
 						expect.objectContaining({
-							dataPath: '.accounts',
+							instancePath: 'accounts',
 							keyword: 'uniqueItems',
 							message: 'should NOT have duplicate items',
 							params: {},

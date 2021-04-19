@@ -1025,7 +1025,7 @@ describe('keys module', () => {
 			const expectedError = {
 				message: 'should be lexicographically ordered',
 				keyword: 'mandatoryKeys',
-				dataPath: '.accounts[0].keys.mandatoryKeys',
+				instancePath: '/accounts[0]/keys.mandatoryKeys',
 				schemaPath: '#/properties/accounts/items/properties/keys/properties/mandatoryKeys',
 				params: { mandatoryKeys },
 			};
@@ -1058,7 +1058,7 @@ describe('keys module', () => {
 			const expectedError = {
 				message: 'should be lexicographically ordered',
 				keyword: 'optionalKeys',
-				dataPath: '.accounts[0].keys.optionalKeys',
+				instancePath: '/accounts[0]/keys/optionalKeys',
 				schemaPath: '#/properties/accounts/items/properties/keys/properties/optionalKeys',
 				params: { optionalKeys },
 			};
@@ -1094,7 +1094,7 @@ describe('keys module', () => {
 			});
 
 			const expectedError = {
-				dataPath: '.accounts[0].keys.mandatoryKeys',
+				instancePath: '/accounts[0]/keys/mandatoryKeys',
 				keyword: 'uniqueItems',
 				message: 'should NOT have duplicate items',
 				params: {},
@@ -1125,7 +1125,7 @@ describe('keys module', () => {
 			}) as unknown) as GenesisBlock<Account<AccountKeys>>;
 
 			const expectedError = {
-				dataPath: '.accounts[0].keys.optionalKeys',
+				instancePath: '/accounts[0]/keys/optionalKeys',
 				keyword: 'uniqueItems',
 				message: 'should NOT have duplicate items',
 				params: {},
@@ -1163,7 +1163,7 @@ describe('keys module', () => {
 			}) as unknown) as GenesisBlock<Account<AccountKeys>>;
 
 			const expectedError = {
-				dataPath: '.accounts[0].keys.mandatoryKeys,.accounts[0].keys.optionalKeys',
+				instancePath: '/accounts[0]/keys.mandatoryKeys,/accounts[0]/keys/optionalKeys',
 				keyword: 'uniqueItems',
 				message: 'should NOT have duplicate items among mandatoryKeys and optionalKeys',
 				params: {},
@@ -1199,7 +1199,7 @@ describe('keys module', () => {
 			});
 
 			const expectedError = {
-				dataPath: '.accounts[0].keys.numberOfSignatures',
+				instancePath: '/accounts[0]/keys/numberOfSignatures',
 				keyword: 'max',
 				message: 'should be maximum of length of mandatoryKeys and optionalKeys',
 				params: {
@@ -1236,7 +1236,7 @@ describe('keys module', () => {
 			}) as unknown) as GenesisBlock<Account<AccountKeys>>;
 
 			const expectedError = {
-				dataPath: '.accounts[0].keys.mandatoryKeys,.accounts[0].keys.optionalKeys',
+				instancePath: '/accounts[0]/keys/mandatoryKeys,/accounts[0]/keys/optionalKeys',
 				keyword: 'maxItems',
 				message: 'should not have more than 64 keys',
 				params: { maxItems: 64 },
@@ -1269,7 +1269,7 @@ describe('keys module', () => {
 			}) as unknown) as GenesisBlock<Account<AccountKeys>>;
 
 			const expectedError = {
-				dataPath: '.accounts[0].keys.numberOfSignatures',
+				instancePath: '/accounts[0]/keys/numberOfSignatures',
 				keyword: 'min',
 				message: 'should be minimum of length of mandatoryKeys',
 				params: {
@@ -1305,7 +1305,7 @@ describe('keys module', () => {
 			}) as unknown) as GenesisBlock<Account<AccountKeys>>;
 
 			const expectedError = {
-				dataPath: '.accounts[0].keys.numberOfSignatures',
+				instancePath: '/accounts[0]/keys/numberOfSignatures',
 				keyword: 'max',
 				message: 'should be maximum of length of mandatoryKeys and optionalKeys',
 				params: {
@@ -1345,7 +1345,7 @@ describe('keys module', () => {
 			}) as unknown) as GenesisBlock<Account<AccountKeys>>;
 
 			const expectedError = {
-				dataPath: '.accounts[0].keys.mandatoryKeys, .accounts[0].keys.optionalKeys',
+				instancePath: '.accounts[0].keys.mandatoryKeys, .accounts[0].keys.optionalKeys',
 				keyword: 'uniqueItems',
 				message: 'should NOT have duplicate items among mandatoryKeys and optionalKeys',
 				schemaPath: '#/properties/accounts/items/properties/keys',
@@ -1386,7 +1386,7 @@ describe('keys module', () => {
 			}) as unknown) as GenesisBlock<Account<AccountKeys>>;
 
 			const expectedError = {
-				dataPath: '.accounts[0].keys.numberOfSignatures',
+				instancePath: '.accounts[0].keys.numberOfSignatures',
 				keyword: 'max',
 				message: 'should be maximum of length of mandatoryKeys and optionalKeys',
 				params: {},
@@ -1423,7 +1423,7 @@ describe('keys module', () => {
 			}) as unknown) as GenesisBlock<Account<AccountKeys>>;
 
 			const expectedError = {
-				dataPath: '.accounts[0].keys.numberOfSignatures',
+				instancePath: '.accounts[0].keys.numberOfSignatures',
 				keyword: 'max',
 				message: 'should be minimum of length of mandatoryKeys',
 				params: {},

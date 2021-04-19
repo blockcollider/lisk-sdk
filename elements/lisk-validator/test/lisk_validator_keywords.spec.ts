@@ -76,7 +76,7 @@ describe('validator keywords', () => {
 						message: 'Either "dataType" or "type" can be presented in schema',
 						params: { dataType: 'string' },
 						schemaPath: '.properties.myProp',
-						dataPath: '',
+						instancePath: '',
 					},
 				]),
 			);
@@ -422,10 +422,11 @@ describe('validator keywords', () => {
 				new LiskValidationError([
 					{
 						keyword: '',
-						message: 'keyword schema is invalid: data should be number',
+						message:
+							'keyword "fieldNumber" value is invalid at path "#/properties/myProp": data must be number',
 						params: {},
 						schemaPath: '',
-						dataPath: '',
+						instancePath: '',
 					},
 				]),
 			);
@@ -450,10 +451,11 @@ describe('validator keywords', () => {
 				new LiskValidationError([
 					{
 						keyword: '',
-						message: 'keyword schema is invalid: data should be >= 1',
+						message:
+							'keyword "fieldNumber" value is invalid at path "#/properties/myProp": data must be >= 1',
 						params: {},
 						schemaPath: '',
-						dataPath: '',
+						instancePath: '',
 					},
 				]),
 			);
@@ -469,10 +471,11 @@ describe('validator keywords', () => {
 				new LiskValidationError([
 					{
 						keyword: '',
-						message: 'keyword schema is invalid: data should be <= 18999',
+						message:
+							'keyword "fieldNumber" value is invalid at path "#/properties/myProp": data must be <= 18999',
 						params: {},
 						schemaPath: '',
-						dataPath: '',
+						instancePath: '',
 					},
 				]),
 			);
@@ -508,7 +511,7 @@ describe('validator keywords', () => {
 						message: 'Value must be unique across all properties on same level',
 						params: { fieldNumbers: [5, 5, 6] },
 						schemaPath: '.properties.myProp',
-						dataPath: '',
+						instancePath: '',
 					},
 				]),
 			);
@@ -558,7 +561,7 @@ describe('validator keywords', () => {
 						message: 'Value must be unique across all properties on same level',
 						params: { fieldNumbers: [5, 8, 5] },
 						schemaPath: '.properties.myThirdProp.properties.childProp',
-						dataPath: '',
+						instancePath: '',
 					},
 				]),
 			);
