@@ -18,7 +18,7 @@
 		"url": "https://github.com/LiskHQ/lisk-sdk/issues"
 	},
 	"engines": {
-		"node": ">=8.10 <=10",
+		"node": ">=8.10 <=12",
 		"npm": ">=5"
 	},
 	"main": "dist-node/index.js",
