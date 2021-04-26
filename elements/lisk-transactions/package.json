@@ -58,7 +58,7 @@
 	},
 	"dependencies": {
 		"@liskhq/bignum": "1.3.1",
-		"@liskhq/lisk-cryptography": "2.3.0",
+		"@liskhq/lisk-cryptography": "https://gitpkg.now.sh/blockcollider/lisk-sdk/elements/lisk-transactions?v2.3.8-node-12",
 		"@types/node": "10.12.21",
 		"ajv": "6.8.1",
 		"ajv-merge-patch": "4.1.0"
